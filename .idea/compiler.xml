@@ -6,16 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="flight-server" />
+        <module name="flight-api" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="flight-server" target="19" />
+      <module name="flight-api" target="19" />
+      <module name="space-flight" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="flight-server" options="-parameters" />
+      <module name="flight-api" options="-parameters" />
     </option>
   </component>
 </project>

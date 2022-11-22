@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/flight-server/flight-server.iml" filepath="$PROJECT_DIR$/flight-server/flight-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flight-api/flight-api.iml" filepath="$PROJECT_DIR$/flight-api/flight-api.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/space-flight.iml" filepath="$PROJECT_DIR$/.idea/space-flight.iml" />
     </modules>
   </component>
