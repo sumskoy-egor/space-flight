@@ -1,4 +1,4 @@
-package com.space.flightserver.model.request;
+package com.space.flightserver.model.entity.inner.request;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;

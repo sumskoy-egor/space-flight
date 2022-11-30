@@ -1,4 +1,4 @@
-package com.space.flightserver.model.entity;
+package com.space.flightserver.model.entity.inner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

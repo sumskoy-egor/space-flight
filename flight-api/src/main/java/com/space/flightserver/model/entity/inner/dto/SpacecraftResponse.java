@@ -1,6 +1,6 @@
-package com.space.flightserver.model.dto;
+package com.space.flightserver.model.entity.inner.dto;
 
-import com.space.flightserver.model.entity.Spacecraft;
+import com.space.flightserver.model.entity.inner.Spacecraft;
 
 public record SpacecraftResponse(Long id, String model, Boolean enabled) {
 

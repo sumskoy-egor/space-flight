@@ -1,8 +1,9 @@
 package com.space.flightserver.controller;
 
+import com.space.flightserver.Routes;
 import com.space.flightserver.exception.ExpeditionException;
-import com.space.flightserver.model.dto.ExpeditionResponse;
-import com.space.flightserver.model.request.CreateExpeditionRequest;
+import com.space.flightserver.model.entity.inner.dto.ExpeditionResponse;
+import com.space.flightserver.model.entity.inner.request.CreateExpeditionRequest;
 import com.space.flightserver.service.cruditerface.ExpeditionCRUD;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/expeditions")
+@RequestMapping(Routes.EXPEDITIONS)
 public class ExpeditionController {
 
     private final ExpeditionCRUD expeditionCRUD;

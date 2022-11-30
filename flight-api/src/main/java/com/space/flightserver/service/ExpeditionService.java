@@ -1,10 +1,10 @@
 package com.space.flightserver.service;
 
 import com.space.flightserver.exception.ExpeditionException;
-import com.space.flightserver.model.dto.ExpeditionResponse;
-import com.space.flightserver.model.entity.Astronaut;
-import com.space.flightserver.model.entity.Expedition;
-import com.space.flightserver.model.request.CreateExpeditionRequest;
+import com.space.flightserver.model.entity.inner.Astronaut;
+import com.space.flightserver.model.entity.inner.Expedition;
+import com.space.flightserver.model.entity.inner.dto.ExpeditionResponse;
+import com.space.flightserver.model.entity.inner.request.CreateExpeditionRequest;
 import com.space.flightserver.repository.AstronautRepository;
 import com.space.flightserver.repository.ExpeditionRepository;
 import com.space.flightserver.repository.SpacecraftRepository;

@@ -1,8 +1,9 @@
 package com.space.flightserver.controller;
 
+import com.space.flightserver.Routes;
 import com.space.flightserver.exception.AstronautException;
-import com.space.flightserver.model.dto.AstronautResponse;
-import com.space.flightserver.model.request.CreateAstronautRequest;
+import com.space.flightserver.model.entity.inner.dto.AstronautResponse;
+import com.space.flightserver.model.entity.inner.request.CreateAstronautRequest;
 import com.space.flightserver.service.cruditerface.AstronautCRUD;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/astronauts")
+@RequestMapping(Routes.ASTRONAUTS)
 public class AstronautController {
 
     private final AstronautCRUD astronautCRUD;

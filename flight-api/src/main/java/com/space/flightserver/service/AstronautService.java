@@ -1,9 +1,9 @@
 package com.space.flightserver.service;
 
 import com.space.flightserver.exception.AstronautException;
-import com.space.flightserver.model.dto.AstronautResponse;
-import com.space.flightserver.model.entity.Astronaut;
-import com.space.flightserver.model.request.CreateAstronautRequest;
+import com.space.flightserver.model.entity.inner.Astronaut;
+import com.space.flightserver.model.entity.inner.dto.AstronautResponse;
+import com.space.flightserver.model.entity.inner.request.CreateAstronautRequest;
 import com.space.flightserver.repository.AstronautRepository;
 import com.space.flightserver.service.cruditerface.AstronautCRUD;
 import org.springframework.data.domain.Page;

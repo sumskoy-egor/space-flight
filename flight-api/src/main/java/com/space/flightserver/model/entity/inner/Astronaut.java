@@ -1,44 +1,43 @@
-package com.space.flightserver.model.entity;
+package com.space.flightserver.model.entity.inner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "spacecrafts")
-public class Spacecraft {
+@Table(name = "astronauts")
+public class Astronaut {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String model;
+    private String name;
 
-    private Boolean enabled;
+    private Boolean isBusy = false;
 
-    @OneToMany(mappedBy = "spacecraft")
+    @ManyToMany(mappedBy = "astronauts")
     private Set<Expedition> expeditions;
 
-    public Spacecraft() {
+    public Astronaut() {
     }
 
-    public Spacecraft(String model, Boolean enabled) {
-        this.model = model;
-        this.enabled = enabled;
-        this.expeditions = expeditions;
+    public Astronaut(String name, Boolean isBusy) {
+        this.name = name;
+        this.isBusy = isBusy;
     }
 
-    public Spacecraft(Long id, String model, Boolean enabled, Set<Expedition> expeditions) {
+    public Astronaut(Long id, String name, Boolean isBusy, Set<Expedition> expeditions) {
         this.id = id;
-        this.model = model;
-        this.enabled = enabled;
+        this.name = name;
+        this.isBusy = isBusy;
         this.expeditions = expeditions;
     }
 
@@ -50,20 +49,20 @@ public class Spacecraft {
         this.id = id;
     }
 
-    public String getModel() {
-        return model;
+    public String getName() {
+        return name;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
+    public Boolean getBusy() {
+        return isBusy;
     }
 
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
+    public void setBusy(Boolean busy) {
+        isBusy = busy;
     }
 
     public Set<Expedition> getExpeditions() {
@@ -78,12 +77,12 @@ public class Spacecraft {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Spacecraft that = (Spacecraft) o;
-        return Objects.equals(id, that.id) && Objects.equals(model, that.model);
+        Astronaut astronaut = (Astronaut) o;
+        return Objects.equals(id, astronaut.id) && Objects.equals(name, astronaut.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, model);
+        return Objects.hash(id, name);
     }
 }

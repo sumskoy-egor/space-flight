@@ -1,6 +1,6 @@
-package com.space.flightserver.model.dto;
+package com.space.flightserver.model.entity.inner.dto;
 
-import com.space.flightserver.model.entity.Astronaut;
+import com.space.flightserver.model.entity.inner.Astronaut;
 
 public record AstronautResponse(Long id, String name, Boolean isBusy) {
 

@@ -1,6 +1,6 @@
-package com.space.flightserver.model.dto;
+package com.space.flightserver.model.entity.inner.dto;
 
-import com.space.flightserver.model.entity.Expedition;
+import com.space.flightserver.model.entity.inner.Expedition;
 
 import java.time.Instant;
 

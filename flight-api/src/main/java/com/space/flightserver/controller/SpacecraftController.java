@@ -1,8 +1,9 @@
 package com.space.flightserver.controller;
 
+import com.space.flightserver.Routes;
 import com.space.flightserver.exception.SpacecraftException;
-import com.space.flightserver.model.dto.SpacecraftResponse;
-import com.space.flightserver.model.request.CreateSpacecraftRequest;
+import com.space.flightserver.model.entity.inner.dto.SpacecraftResponse;
+import com.space.flightserver.model.entity.inner.request.CreateSpacecraftRequest;
 import com.space.flightserver.service.cruditerface.SpacecraftCRUD;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/spacecrafts")
+@RequestMapping(Routes.SPACECRAFTS)
 public class SpacecraftController {
 
     private final SpacecraftCRUD spacecraftCRUD;

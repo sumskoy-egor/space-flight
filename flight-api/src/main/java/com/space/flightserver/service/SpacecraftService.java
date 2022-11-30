@@ -1,9 +1,9 @@
 package com.space.flightserver.service;
 
 import com.space.flightserver.exception.SpacecraftException;
-import com.space.flightserver.model.dto.SpacecraftResponse;
-import com.space.flightserver.model.entity.Spacecraft;
-import com.space.flightserver.model.request.CreateSpacecraftRequest;
+import com.space.flightserver.model.entity.inner.Spacecraft;
+import com.space.flightserver.model.entity.inner.dto.SpacecraftResponse;
+import com.space.flightserver.model.entity.inner.request.CreateSpacecraftRequest;
 import com.space.flightserver.repository.SpacecraftRepository;
 import com.space.flightserver.service.cruditerface.SpacecraftCRUD;
 import org.springframework.data.domain.Page;
