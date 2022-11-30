@@ -1,11 +1,11 @@
-package com.space.flightserver.service;
+package com.space.flightserver.service.inner;
 
 import com.space.flightserver.exception.SpacecraftException;
 import com.space.flightserver.model.entity.inner.Spacecraft;
 import com.space.flightserver.model.entity.inner.dto.SpacecraftResponse;
 import com.space.flightserver.model.entity.inner.request.CreateSpacecraftRequest;
 import com.space.flightserver.repository.SpacecraftRepository;
-import com.space.flightserver.service.cruditerface.SpacecraftCRUD;
+import com.space.flightserver.service.serviceinterface.inner.SpacecraftCRUD;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

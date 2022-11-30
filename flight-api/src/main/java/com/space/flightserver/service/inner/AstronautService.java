@@ -1,11 +1,11 @@
-package com.space.flightserver.service;
+package com.space.flightserver.service.inner;
 
 import com.space.flightserver.exception.AstronautException;
 import com.space.flightserver.model.entity.inner.Astronaut;
 import com.space.flightserver.model.entity.inner.dto.AstronautResponse;
 import com.space.flightserver.model.entity.inner.request.CreateAstronautRequest;
 import com.space.flightserver.repository.AstronautRepository;
-import com.space.flightserver.service.cruditerface.AstronautCRUD;
+import com.space.flightserver.service.serviceinterface.inner.AstronautCRUD;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

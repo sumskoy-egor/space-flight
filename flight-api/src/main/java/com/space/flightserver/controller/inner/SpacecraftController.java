@@ -1,10 +1,10 @@
-package com.space.flightserver.controller;
+package com.space.flightserver.controller.inner;
 
 import com.space.flightserver.Routes;
 import com.space.flightserver.exception.SpacecraftException;
 import com.space.flightserver.model.entity.inner.dto.SpacecraftResponse;
 import com.space.flightserver.model.entity.inner.request.CreateSpacecraftRequest;
-import com.space.flightserver.service.cruditerface.SpacecraftCRUD;
+import com.space.flightserver.service.serviceinterface.inner.SpacecraftCRUD;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;

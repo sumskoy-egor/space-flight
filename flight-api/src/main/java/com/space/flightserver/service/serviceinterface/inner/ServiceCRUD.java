@@ -1,4 +1,4 @@
-package com.space.flightserver.service.cruditerface;
+package com.space.flightserver.service.serviceinterface.inner;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

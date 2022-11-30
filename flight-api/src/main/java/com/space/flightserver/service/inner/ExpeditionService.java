@@ -1,4 +1,4 @@
-package com.space.flightserver.service;
+package com.space.flightserver.service.inner;
 
 import com.space.flightserver.exception.ExpeditionException;
 import com.space.flightserver.model.entity.inner.Astronaut;
@@ -8,7 +8,7 @@ import com.space.flightserver.model.entity.inner.request.CreateExpeditionRequest
 import com.space.flightserver.repository.AstronautRepository;
 import com.space.flightserver.repository.ExpeditionRepository;
 import com.space.flightserver.repository.SpacecraftRepository;
-import com.space.flightserver.service.cruditerface.ExpeditionCRUD;
+import com.space.flightserver.service.serviceinterface.inner.ExpeditionCRUD;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;

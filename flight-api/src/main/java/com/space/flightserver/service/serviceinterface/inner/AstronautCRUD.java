@@ -1,4 +1,4 @@
-package com.space.flightserver.service.cruditerface;
+package com.space.flightserver.service.serviceinterface.inner;
 
 import com.space.flightserver.model.entity.inner.dto.AstronautResponse;
 import com.space.flightserver.model.entity.inner.request.CreateAstronautRequest;
