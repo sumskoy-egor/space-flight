@@ -3,6 +3,8 @@ package com.space.flightserver.model.entity.inner.dto;
 import com.space.flightserver.model.entity.inner.Expedition;
 
 import java.time.Instant;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record ExpeditionResponse(
         Long id,
@@ -11,7 +13,8 @@ public record ExpeditionResponse(
         Instant planCompletionDate,
         Instant actualStartDate,
         Instant actualCompletionDate,
-        SpacecraftResponse spacecraft
+        SpacecraftResponse spacecraft,
+        Set<AstronautResponse> astronauts
 ) {
 
     public static ExpeditionResponse fromExpedition(Expedition expedition) {
@@ -22,6 +25,9 @@ public record ExpeditionResponse(
                 expedition.getPlanCompletionDate(),
                 expedition.getActualStartDate(),
                 expedition.getActualCompletionDate(),
-                SpacecraftResponse.fromSpacecraft(expedition.getSpacecraft()));
+                SpacecraftResponse.fromSpacecraft(expedition.getSpacecraft()),
+                Set.copyOf(expedition.getAstronauts())
+                        .stream().map(AstronautResponse::fromAstronaut).collect(Collectors.toSet())
+        );
     }
 }

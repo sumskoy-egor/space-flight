@@ -32,7 +32,6 @@ public class Spacecraft {
     public Spacecraft(String model, Boolean enabled) {
         this.model = model;
         this.enabled = enabled;
-        this.expeditions = expeditions;
     }
 
     public Spacecraft(Long id, String model, Boolean enabled, Set<Expedition> expeditions) {
