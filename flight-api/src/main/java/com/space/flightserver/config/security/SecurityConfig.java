@@ -64,8 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         List<SaveUserRequest> requests = securityProperties.getAdmins().entrySet().stream()
                 .map(entry -> new SaveUserRequest(
                         entry.getValue().getEmail(),
-                        new String(entry.getValue().getPassword()),
-                        entry.getKey()))
+                        entry.getKey(),
+                        new String(entry.getValue().getPassword())
+                ))
                 .peek(admin -> log.info("Default admin found: {} <{}>", admin.name(), admin.email()))
                 .collect(Collectors.toList());
         userService.mergeAdmins(requests);
@@ -85,15 +86,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // open swagger-ui
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 // allow user registration and refresh, ignore authorization filters on login
-                .antMatchers(HttpMethod.POST, Routes.USERS, Routes.TOKEN + "/refresh").permitAll()
+                .antMatchers(HttpMethod.POST, Routes.USERS, Routes.TOKEN).permitAll()
                 // admin can register new admins
                 .antMatchers(HttpMethod.POST, Routes.USERS + "/admins").hasRole("ADMIN")
                 // regular users can view basic user info for other users
-                .antMatchers(HttpMethod.GET,Routes.USERS + "/{id:\\d+}").authenticated()
+                .antMatchers(HttpMethod.GET, Routes.USERS + "/{id:\\d+}").authenticated()
                 // recruiter can edit astronauts
-                .antMatchers(HttpMethod.POST,Routes.ASTRONAUTS).hasRole("RECRUITER")
+                .antMatchers(HttpMethod.POST, Routes.ASTRONAUTS).hasRole("RECRUITER")
                 // operator can edit spaceflights
-                .antMatchers(HttpMethod.POST,Routes.EXPEDITIONS).hasRole("OPERATOR")
+                .antMatchers(HttpMethod.POST, Routes.EXPEDITIONS).hasRole("OPERATOR")
                 // admin can manage users by id
                 .antMatchers(Routes.USERS + "/{id:\\d+}/**").hasRole("ADMIN")
                 // admin can use Actuator endpoints

@@ -67,3 +67,16 @@ create table user_authorities
     constraint user_authorities_authorities_fk foreign key (authority_id)
         references authorities (id) on delete cascade
 );
+
+create table refresh_tokens
+(
+    value     uuid        not null primary key,
+    user_id   bigint      not null,
+    issued_at timestamptz not null,
+    expire_at timestamptz not null,
+    next      uuid,
+    constraint refresh_tokens_user_fk foreign key (user_id)
+        references users (id) on delete cascade,
+    constraint refresh_tokens_next_fk foreign key (next)
+        references refresh_tokens (value) on delete cascade
+);
