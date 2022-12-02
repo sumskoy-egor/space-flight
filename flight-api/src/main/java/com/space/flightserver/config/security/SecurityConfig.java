@@ -1,18 +1,30 @@
 package com.space.flightserver.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.space.flightserver.Routes;
+import com.space.flightserver.config.security.filters.JWTAuthenticationFilter;
+import com.space.flightserver.config.security.filters.JWTAuthorizationFilter;
 import com.space.flightserver.config.security.properties.FlightSecurityProperties;
 import com.space.flightserver.model.entity.user.request.SaveUserRequest;
 import com.space.flightserver.service.user.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -67,6 +79,57 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        super.configure(http);
+        http.authorizeRequests()
+                // open static resources
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                // open swagger-ui
+                .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                // allow user registration and refresh, ignore authorization filters on login
+                .antMatchers(HttpMethod.POST, Routes.USERS, Routes.TOKEN + "/refresh").permitAll()
+                // admin can register new admins
+                .antMatchers(HttpMethod.POST, Routes.USERS + "/admins").hasRole("ADMIN")
+                // regular users can view basic user info for other users
+                .antMatchers(HttpMethod.GET,Routes.USERS + "/{id:\\d+}").authenticated()
+                // recruiter can edit astronauts
+                .antMatchers(HttpMethod.POST,Routes.ASTRONAUTS).hasRole("RECRUITER")
+                // operator can edit spaceflights
+                .antMatchers(HttpMethod.POST,Routes.EXPEDITIONS).hasRole("OPERATOR")
+                // admin can manage users by id
+                .antMatchers(Routes.USERS + "/{id:\\d+}/**").hasRole("ADMIN")
+                // admin can use Actuator endpoints
+                .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
+                // by default, require admin rights
+                .anyRequest().hasRole("ADMIN")
+                .and()
+                // auth filter
+                .addFilter(jwtAuthenticationFilter())
+                // jwt-verification filter
+                .addFilter(jwtAuthorizationFilter())
+                // for unauthorized requests return 401
+                .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                .and()
+                // allow cross-origin requests for all endpoints
+                .cors().configurationSource(corsConfigurationSource())
+                .and()
+                .csrf().disable()
+                // this disables session creation on Spring Security
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+
+    private JWTAuthenticationFilter jwtAuthenticationFilter() throws Exception {
+        var filter = new JWTAuthenticationFilter(authenticationManager(), objectMapper);
+        filter.setFilterProcessesUrl(Routes.TOKEN);
+        return filter;
+    }
+
+    private JWTAuthorizationFilter jwtAuthorizationFilter() throws Exception {
+        return new JWTAuthorizationFilter(authenticationManager(), securityProperties.getJwtProperties());
+    }
+
+    private CorsConfigurationSource corsConfigurationSource() {
+        var source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
+    }
+
 }

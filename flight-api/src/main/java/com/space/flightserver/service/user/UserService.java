@@ -143,6 +143,23 @@ public class UserService implements UserDetailsService, UserOperations {
     }
 
     @Override
+    public UserResponse createAdmin(SaveUserRequest request) {
+        if(userRepository.existsByEmail(request.email())) {
+            throw new FlightUserException(HttpStatus.CONFLICT, "Duplicated email!");
+        }
+
+        var authority = authorityRepository
+                .findById(KnownAuthority.ROLE_ADMIN)
+                .orElseThrow(() -> new FlightUserException(HttpStatus.NOT_FOUND,
+                        "Authority " + KnownAuthority.ROLE_OPERATOR.name() + " was not found"));
+
+        Map<KnownAuthority, FlightUserAuthority> authorities = new EnumMap<>(KnownAuthority.class);
+        authorities.put(KnownAuthority.ROLE_ADMIN, authority);
+
+        return UserResponse.fromUser(createUser(request, authorities));
+    }
+
+    @Override
     @Transactional
     public UserResponse changePasswordById(Long id, OverrideUserPasswordRequest request) {
         var user = userRepository.findById(id).orElseThrow(() -> new FlightUserException(HttpStatus.NOT_FOUND,

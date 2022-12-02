@@ -1,6 +1,6 @@
 space-flight:
   security:
-    jwt:
+    jwt-properties:
       secret: eitu9aichae7eitee9XiciweishohW3pieshaifasosai5xie9Oomobulohyu8ie
       access-expire-in: 10m
       refresh-expire-in: 3d

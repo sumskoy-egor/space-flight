@@ -4,12 +4,15 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyEnumerated;
 import javax.persistence.Table;
 import java.time.OffsetDateTime;
 import java.util.EnumMap;
@@ -38,10 +41,12 @@ public class FlightUser {
     private OffsetDateTime createdAt;
 
     @ManyToMany
-    @JoinTable(name = "user_suthorities",
+    @JoinTable(name = "user_authorities",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "autority_id", referencedColumnName = "id")
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
     )
+    @MapKeyEnumerated(EnumType.ORDINAL)
+    @MapKey(name = "id")
     private Map<KnownAuthority, FlightUserAuthority> authorities = new EnumMap<>(KnownAuthority.class);
 
     @Override

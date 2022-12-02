@@ -71,6 +71,13 @@ public class UserController {
         return userOperations.createRecruiter(request);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "/admins",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserResponse registerAdmin(@RequestBody @Valid SaveUserRequest request) {
+        return userOperations.createAdmin(request);
+    }
+
     @GetMapping(value = "/me", produces = MediaType.APPLICATION_JSON_VALUE)
     public UserResponse getCurrentUser(@AuthenticationPrincipal String email) {
         return userOperations.findByEmail(email).orElseThrow(() -> new FlightUserException(HttpStatus.NOT_FOUND,
