@@ -6,7 +6,9 @@ public enum KnownAuthority implements GrantedAuthority {
 
     ROLE_RECRUITER,
 
-    ROLE_OPERATOR;
+    ROLE_OPERATOR,
+
+    ROLE_ADMIN;
 
     @Override
     public String getAuthority() {

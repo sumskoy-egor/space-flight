@@ -1,3 +1,13 @@
+space-flight:
+  security:
+    jwt-properties:
+      secret: eitu9aichae7eitee9XiciweishohW3pieshaifasosai5xie9Oomobulohyu8ie
+      access-expire-in: 10m
+      refresh-expire-in: 3d
+    admins:
+      space:
+        email: space@flight.com
+        password: secretpassword
 spring:
   profiles:
     active: dev
@@ -19,4 +29,4 @@ springdoc:
 management:
   endpoint:
     health:
-      show-details: always
+      show-details: when_authorized

@@ -26,6 +26,8 @@ public interface UserOperations {
 
     UserResponse createOperator(SaveUserRequest request);
 
+    UserResponse createAdmin(SaveUserRequest request);
+
     UserResponse changePasswordById(Long id, OverrideUserPasswordRequest request);
 
     UserResponse changePasswordByEmail(String email, ChangeUserPasswordRequest request);
@@ -33,5 +35,4 @@ public interface UserOperations {
     void deleteById(Long id);
 
     void deleteByEmail(String email);
-
 }

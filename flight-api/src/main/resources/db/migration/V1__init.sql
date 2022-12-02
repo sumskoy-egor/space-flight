@@ -35,3 +35,48 @@ create table expeditions_astronauts
 create index on spacecrafts (id);
 create index on astronauts (id);
 create index on expeditions (id);
+
+create table users
+(
+    id         bigserial primary key,
+    email      text        not null,
+    name       text        not null,
+    password   text        not null,
+    created_at timestamptz not null default now()
+);
+
+create unique index users_email_uindex on users (email);
+create unique index users_name_uindex on users (name);
+create unique index users_email_name_index on users (email, name);
+
+create table authorities
+(
+    id    int primary key,
+    value text not null
+);
+
+create unique index authorities_value_uindex on authorities (value);
+
+create table user_authorities
+(
+    user_id      bigint not null,
+    authority_id int    not null,
+    primary key (user_id, authority_id),
+    constraint user_authorities_users_fk foreign key (user_id)
+        references users (id) on delete cascade,
+    constraint user_authorities_authorities_fk foreign key (authority_id)
+        references authorities (id) on delete cascade
+);
+
+create table refresh_tokens
+(
+    value     uuid        not null primary key,
+    user_id   bigint      not null,
+    issued_at timestamptz not null,
+    expire_at timestamptz not null,
+    next      uuid,
+    constraint refresh_tokens_user_fk foreign key (user_id)
+        references users (id) on delete cascade,
+    constraint refresh_tokens_next_fk foreign key (next)
+        references refresh_tokens (value) on delete cascade
+);
