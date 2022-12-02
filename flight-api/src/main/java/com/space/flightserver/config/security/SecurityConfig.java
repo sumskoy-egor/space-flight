@@ -86,17 +86,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // open swagger-ui
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 // allow user registration and refresh, ignore authorization filters on login
-                .antMatchers(HttpMethod.POST, Routes.USERS, Routes.TOKEN).permitAll()
-                // admin can register new admins
-                .antMatchers(HttpMethod.POST, Routes.USERS + "/admins").hasRole("ADMIN")
-                // regular users can view basic user info for other users
-                .antMatchers(HttpMethod.GET, Routes.USERS + "/{id:\\d+}").authenticated()
+                .antMatchers(HttpMethod.POST, Routes.TOKEN).permitAll()
                 // recruiter can edit astronauts
-                .antMatchers(HttpMethod.POST, Routes.ASTRONAUTS).hasRole("RECRUITER")
+                .antMatchers(Routes.ASTRONAUTS).hasRole("RECRUITER")
                 // operator can edit spaceflights
-                .antMatchers(HttpMethod.POST, Routes.EXPEDITIONS).hasRole("OPERATOR")
+                .antMatchers(Routes.EXPEDITIONS).hasRole("OPERATOR")
                 // admin can manage users by id
-                .antMatchers(Routes.USERS + "/{id:\\d+}/**").hasRole("ADMIN")
                 // admin can use Actuator endpoints
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ADMIN")
                 // by default, require admin rights

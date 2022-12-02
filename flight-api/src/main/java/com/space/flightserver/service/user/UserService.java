@@ -51,7 +51,7 @@ public class UserService implements UserDetailsService, UserOperations {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        FlightUser user = userRepository.findByEmailOrName(username, username)
+        FlightUser user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found"));
 
         return new FlightUserDetails(user);
