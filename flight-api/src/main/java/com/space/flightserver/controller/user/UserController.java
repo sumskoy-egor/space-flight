@@ -33,14 +33,7 @@ public class UserController {
         this.userOperations = userOperations;
     }
 
-    //region authenticated user
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "/operator",
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserResponse registerOperator(@RequestBody @Valid SaveUserRequest request) {
-        return userOperations.createOperator(request);
-    }
+    //region non-admin user
 
     @PatchMapping(value = "/me",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -63,6 +56,13 @@ public class UserController {
     //endregion
 
     //region admin
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value = "/operator",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public UserResponse registerOperator(@RequestBody @Valid SaveUserRequest request) {
+        return userOperations.createOperator(request);
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/recruiter",

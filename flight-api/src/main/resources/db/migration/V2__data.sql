@@ -16,3 +16,5 @@ insert into authorities (id, value)
 values (0, 'ROLE_RECRUITER');
 insert into authorities (id, value)
 values (1, 'ROLE_OPERATOR');
+insert into authorities (id, value)
+values (2, 'ROLE_ADMIN');

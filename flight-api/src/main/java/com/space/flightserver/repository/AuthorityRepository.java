@@ -10,7 +10,9 @@ import java.util.stream.Stream;
 
 public interface AuthorityRepository extends JpaRepository<FlightUserAuthority, KnownAuthority> {
 
-    Set<KnownAuthority> ADMIN_AUTHORITIES = EnumSet.of(KnownAuthority.ROLE_RECRUITER, KnownAuthority.ROLE_OPERATOR);
+    Set<KnownAuthority> ADMIN_AUTHORITIES = EnumSet.of(KnownAuthority.ROLE_RECRUITER,
+            KnownAuthority.ROLE_OPERATOR,
+            KnownAuthority.ROLE_ADMIN);
 
     Stream<FlightUserAuthority> findAllByIdIn(Set<KnownAuthority> ids);
 

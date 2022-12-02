@@ -155,7 +155,8 @@ public class UserService implements UserDetailsService, UserOperations {
     @Override
     @Transactional
     public UserResponse changePasswordByEmail(String email, ChangeUserPasswordRequest request) {
-        var user = userRepository.findByEmail(email).orElseThrow(() -> new FlightUserException(HttpStatus.NOT_FOUND,
+        var user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new FlightUserException(HttpStatus.NOT_FOUND,
                 "User with such email was not found"));
 
         if(!passwordEncoder.matches(request.oldPassword(), user.getPassword()))
