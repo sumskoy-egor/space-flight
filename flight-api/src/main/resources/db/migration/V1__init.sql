@@ -46,7 +46,6 @@ create table users
 );
 
 create unique index users_email_uindex on users (email);
-create unique index users_name_uindex on users (name);
 create unique index users_email_name_index on users (email, name);
 
 create table authorities
