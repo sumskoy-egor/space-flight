@@ -6,3 +6,6 @@ SELECT SETVAL((SELECT PG_GET_SERIAL_SEQUENCE('"spacecrafts"', 'id')),
 
 SELECT SETVAL((SELECT PG_GET_SERIAL_SEQUENCE('"expeditions"', 'id')),
               (SELECT (MAX(expeditions.id) + 1) FROM expeditions), FALSE);
+
+SELECT SETVAL((SELECT PG_GET_SERIAL_SEQUENCE('"users"', 'id')),
+              (SELECT (MAX(users.id) + 1) FROM users), FALSE);

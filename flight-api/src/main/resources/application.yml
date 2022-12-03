@@ -7,7 +7,7 @@ space-flight:
     admins:
       space:
         email: space@flight.com
-        password: $2a$10$WBxIdF./sHKCGllpn4jBBuxzok2eEbG4lMV7V74RtJhAiS2aAY.ri
+        password: secretpassword
 spring:
   profiles:
     active: dev

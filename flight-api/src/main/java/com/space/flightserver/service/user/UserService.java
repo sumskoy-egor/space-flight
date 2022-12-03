@@ -219,7 +219,7 @@ public class UserService implements UserDetailsService, UserOperations {
                 return newUser;
             });
             user.setName(request.name());
-            user.setPassword(request.password());
+            user.setPassword(passwordEncoder.encode(request.password()));
             user.getAuthorities().putAll(authorities);
             userRepository.save(user);
         }
