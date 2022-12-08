@@ -1,10 +1,9 @@
-package com.space.flight.flightweb.service;
+package com.space.flight.flightweb.service.auth;
 
 import com.space.flight.flightweb.model.auth.SignInRequest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class AuthService {
 
     private static final String apiUrl = "http://localhost:8080/api/v3/token";
 
-    public String[] login(String email, String password) {
+    public String login(String email, String password) {
 
         SignInRequest request = new SignInRequest(email, password);
 
@@ -31,16 +30,9 @@ public class AuthService {
                 requestEntity,
                 String.class);
 
-        HttpStatus httpStatus = responseEntity.getStatusCode();
-        System.out.println("\nresponse status code - " + httpStatus + "\n");
-
         String body = responseEntity.getBody();
-        System.out.println("response body - " + body + "\n");
 
-        HttpHeaders responseHeaders = responseEntity.getHeaders();
-        System.out.println("response headers - " + responseHeaders + "\n");
-
-        return new String[]{httpStatus.toString(), body, responseHeaders.toString()};
+        return body;
     }
 
 }
