@@ -61,7 +61,7 @@ public class UserService implements UserDetailsService, UserOperations {
     @Override
     @Transactional(readOnly = true)
     public Page<UserResponse> findAll(Pageable pageable) {
-        return userRepository.findAll(pageable).map(UserResponse::fromUser);
+        return userRepository.findAll(pageable).map(UserResponse::fromUserWithBasicAttributes);
     }
 
     @Override
