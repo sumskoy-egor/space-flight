@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="PUT" th:action="@{/astronauts/put}" th:object="${astronaut}">
+
+  <label for="id">Input Astronaut's ID</label>
+  <input th:field="*{id}" type="number" id="id"><br>
+
+  <h3>Input new data</h3>
+
+    <label for="name">Name</label>
+    <input th:field="*{name}" type="text" id="name"/>
+
+    <br>
+
+    <label><input type="checkbox" th:field="*{isBusy}"/>Busy state</label>
+
+  <br>
+
+  <input type="submit" value="Put">
+
+</form>
+
+</body>
+</html>
