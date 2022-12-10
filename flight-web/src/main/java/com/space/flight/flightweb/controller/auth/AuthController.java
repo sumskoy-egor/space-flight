@@ -39,11 +39,12 @@ public class AuthController {
                     new TypeReference<Map<String, String>>() {});
 
             Cookie cookie = new Cookie("accessToken", map.get("accessToken"));
+            cookie.setMaxAge(600);
             servletResponse.addCookie(cookie);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
-        return "test_page";
+        return "action_page";
     }
 }
