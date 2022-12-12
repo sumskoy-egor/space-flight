@@ -33,8 +33,6 @@ public class UserController {
         this.userOperations = userOperations;
     }
 
-    //region non-admin user
-
     @PatchMapping(value = "/me",
             produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserResponse mergeCurrentUser(@AuthenticationPrincipal String email,
@@ -52,10 +50,6 @@ public class UserController {
     public void deleteCurrentUser(@AuthenticationPrincipal String email) {
         userOperations.deleteByEmail(email);
     }
-
-    //endregion
-
-    //region admin
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/operator",
@@ -103,5 +97,4 @@ public class UserController {
         userOperations.deleteById(id);
     }
 
-    //endregion
 }
