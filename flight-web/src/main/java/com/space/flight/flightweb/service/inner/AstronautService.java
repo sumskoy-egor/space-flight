@@ -1,6 +1,7 @@
 package com.space.flight.flightweb.service.inner;
 
 import com.space.flight.flightweb.model.inner.AstronautRequest;
+import com.space.flight.flightweb.service.ServiceTokenAccessible;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -9,9 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class AstronautService {
+public class AstronautService implements ServiceTokenAccessible {
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
 
     private String accessToken;
 
@@ -50,6 +51,7 @@ public class AstronautService {
         return responseEntity.getBody();
     }
 
+    @SuppressWarnings("Duplicates")
     public String delete(Long id) {
 
         HttpHeaders headers = new HttpHeaders();
@@ -79,7 +81,7 @@ public class AstronautService {
         HttpEntity<Object> requestEntity = new HttpEntity<>(request, headers);
 
         try {
-            ResponseEntity<String> responseEntity = restTemplate.exchange(apiUrl + "/{id}",
+            restTemplate.exchange(apiUrl + "/{id}",
                     HttpMethod.PUT,
                     requestEntity,
                     String.class,
@@ -91,6 +93,7 @@ public class AstronautService {
 
     }
 
+    @Override
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }

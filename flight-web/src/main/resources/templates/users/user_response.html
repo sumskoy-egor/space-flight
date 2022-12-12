@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <label>User id: <a th:text="${id}">User id</a></label><br>
+    <label>User email: <a th:text="${email}">User email</a></label><br>
+    <label>User name: <a th:text="${name}">User name</a></label><br>
+    <label>Created at: <a th:text="${createdAt}">Created at time</a></label><br>
+    <label>User roles:</label><br>
+    <ul th:each="role : ${authorities}">
+        <li th:text="${role}"></li>
+    </ul>
+</body>
+</html>
