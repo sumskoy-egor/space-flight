@@ -7,7 +7,7 @@
 <body>
 <form th:method="POST" th:action="@{/users/recruiter}" th:object="${user}">
 
-    <label>Email: <input th:field="*{email}" type="text"/></label><br>
+    <label>Email: <input th:field="*{email}" type="email"/></label><br>
     <label>Name: <input th:field="*{name}" type="text"/></label><br>
     <label>Password: <input th:field="*{password}" type="password"/></label><br>
 
