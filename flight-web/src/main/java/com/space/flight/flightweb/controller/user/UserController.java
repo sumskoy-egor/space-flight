@@ -3,7 +3,7 @@ package com.space.flight.flightweb.controller.user;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.space.flight.flightweb.model.user.IdDTO;
+import com.space.flight.flightweb.model.IdDTO;
 import com.space.flight.flightweb.model.user.UserRequest;
 import com.space.flight.flightweb.service.user.UserService;
 import org.springframework.stereotype.Controller;
@@ -112,7 +112,7 @@ public class UserController {
         service.setAccessToken(accessToken);
         service.delete(id.getIdLong());
         model.addAttribute("result", "Your request has been processed");
-        return "users/user_another_result";
+        return "another_result";
     }
 
 }

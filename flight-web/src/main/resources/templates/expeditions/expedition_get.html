@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Get Expedition</title>
+</head>
+<body>
+<form th:method="GET" th:action="@{/expeditions/getById}" th:object="${id}">
+
+    <label>Expedition ID: <input th:field="*{idLong}" type="number"></label>
+
+    <br>
+
+    <input type="submit" value="Get">
+
+</form>
+</body>
+</html>

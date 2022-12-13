@@ -117,10 +117,10 @@ public class AstronautController {
         String response = service.put(astronaut);
         if (response == null) {
             model.addAttribute("result", "Astronaut does not exist");
-            return "astronauts/astronaut_another_result";
+            return "another_result";
         } else {
             model.addAttribute("result", "Astronaut has been put");
-            return "astronauts/astronaut_another_result";
+            return "another_result";
         }
 
     }
@@ -130,7 +130,7 @@ public class AstronautController {
                                          String response) throws JsonProcessingException {
         if (response == null) {
             model.addAttribute("result", "Astronaut does not exist");
-            return "astronauts/astronaut_another_result";
+            return "another_result";
         }
 
         Map<String, String> map = objectMapper.readValue((response),

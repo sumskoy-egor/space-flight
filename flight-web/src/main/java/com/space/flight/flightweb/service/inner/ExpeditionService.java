@@ -1,6 +1,6 @@
 package com.space.flight.flightweb.service.inner;
 
-import com.space.flight.flightweb.model.inner.AstronautRequest;
+import com.space.flight.flightweb.model.inner.ExpeditionRequest;
 import com.space.flight.flightweb.service.ServiceTokenAccessible;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class AstronautService implements ServiceTokenAccessible {
+public class ExpeditionService implements ServiceTokenAccessible {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
     private String accessToken;
 
-    private static final String apiUrl = "http://localhost:8080/api/v3/astronauts";
+    private static final String apiUrl = "http://localhost:8080/api/v3/expeditions";
 
-    public String getById(Long id) {
+    public String get(Long id) {
 
         HttpHeaders headers = getHttpHeaders();
 
@@ -33,7 +33,7 @@ public class AstronautService implements ServiceTokenAccessible {
         return responseEntity.getBody();
     }
 
-    public String post(AstronautRequest request) {
+    public String create(ExpeditionRequest request) {
 
         HttpHeaders headers = getHttpHeaders();
 
@@ -66,23 +66,40 @@ public class AstronautService implements ServiceTokenAccessible {
         }
     }
 
-    public String put(AstronautRequest request) {
+    public String start(Long id) {
 
         HttpHeaders headers = getHttpHeaders();
 
-        HttpEntity<Object> requestEntity = new HttpEntity<>(request, headers);
+        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
 
         try {
-            restTemplate.exchange(apiUrl + "/{id}",
+            restTemplate.exchange(apiUrl + "/start/{id}",
                     HttpMethod.PUT,
                     requestEntity,
                     String.class,
-                    request.getId().toString());
+                    id.toString());
             return "success";
         } catch (Exception e) {
             return null;
         }
+    }
 
+    public String complete(Long id) {
+
+        HttpHeaders headers = getHttpHeaders();
+
+        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
+
+        try {
+            restTemplate.exchange(apiUrl + "/complete/{id}",
+                    HttpMethod.PUT,
+                    requestEntity,
+                    String.class,
+                    id.toString());
+            return "success";
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private HttpHeaders getHttpHeaders() {
@@ -96,5 +113,4 @@ public class AstronautService implements ServiceTokenAccessible {
     public void setAccessToken(String accessToken) {
         this.accessToken = accessToken;
     }
-
 }

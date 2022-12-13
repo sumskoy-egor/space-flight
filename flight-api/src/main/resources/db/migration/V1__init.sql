@@ -27,8 +27,8 @@ create table expeditions
 
 create table expeditions_astronauts
 (
-    expedition_id bigserial references expeditions (id) on update cascade,
-    astronaut_id  bigserial references astronauts (id) on update cascade,
+    expedition_id bigserial references expeditions (id) on delete cascade,
+    astronaut_id  bigserial references astronauts (id) on update cascade on delete cascade,
     constraint expeditions_astronauts_pkey primary key (expedition_id, astronaut_id)
 );
 

@@ -1,4 +1,4 @@
-package com.space.flight.flightweb.model.user;
+package com.space.flight.flightweb.model;
 
 import java.util.UUID;
 
