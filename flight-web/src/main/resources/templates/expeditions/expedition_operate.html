@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Operate an Expedition</title>
+</head>
+<body>
+
+<h2>Start Expeditions</h2>
+<form th:method="PUT" th:action="@{/expeditions/start}" form th:object="${id}">
+    <label>Expedition ID: <input th:field="*{idLong}" type="number"/></label><br>
+    <input type="submit" value="Start"/>
+</form>
+<br>
+
+<h2>Complete Expeditions</h2>
+<form th:method="PUT" th:action="@{/expeditions/complete}" form th:object="${id}">
+    <label>Expedition ID: <input th:field="*{idLong}" type="number"/></label><br>
+    <input type="submit" value="Complete"/>
+</form>
+
+</body>
+</html>

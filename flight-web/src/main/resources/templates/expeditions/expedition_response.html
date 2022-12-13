@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Expedition Data</title>
+</head>
+<body>
+<label>Expedition id: <a th:text="${id}">Expedition id</a></label><br>
+<label>Mission: <a th:text="${mission}">Mission</a></label><br>
+<label>Planned start date: <a th:text="${planStartDate}">Planned start date</a></label><br>
+<label>Planned completion date: <a th:text="${planCompletionDate}">Planned completion date</a></label><br>
+<label>Actual start date: <a th:text="${actualStartDate}">Actual start date</a></label><br>
+<label>Actual completion date: <a th:text="${actualCompletionDate}">Actual completion date</a></label><br>
+
+<br>
+<h3>Spacecraft info</h3><br>
+<label>Spacecraft ID: <a th:text="${spacecraft.id}">Spacecraft ID</a></label><br>
+<label>Spacecraft model: <a th:text="${spacecraft.model}">Spacecraft model</a></label><br>
+<label>Spacecraft status: <a th:text="${spacecraft.enabled}">Spacecraft status</a></label><br>
+
+<br><label>Astronauts:</label><br>
+<ul th:each="astronaut : ${astronauts}">
+    <li th:text="${astronaut.id}"></li>
+    <br>
+    <li th:text="${astronaut.name}"></li>
+    <br>
+</ul>
+</body>
+</html>

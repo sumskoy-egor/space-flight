@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Astronauts</title>
+</head>
+<body>
+
+<h2>Select astronaut action</h2><br>
+
+<form th:method="GET" th:action="@{/astronauts/getByIdRedirect}">
+    <input type="submit" value="Get by ID"/>
+</form><br>
+
+<form th:method="GET" th:action="@{/astronauts/postRedirect}">
+    <input type="submit" value="Post new"/>
+</form><br>
+
+<form th:method="GET" th:action="@{astronauts/deleteRedirect}">
+    <input type="submit" value="Delete one">
+</form><br>
+
+<form th:method="GET" th:action="@{astronauts/putRedirect}">
+    <input type="submit" value="Put">
+</form><br>
+
+</body>
+</html>

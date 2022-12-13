@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Operator</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/users/operator}" th:object="${user}">
+
+    <label>Email: <input th:field="*{email}" type="email"/></label><br>
+    <label>Name: <input th:field="*{name}" type="text"/></label><br>
+    <label>Password: <input th:field="*{password}" type="password"/></label><br>
+
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>

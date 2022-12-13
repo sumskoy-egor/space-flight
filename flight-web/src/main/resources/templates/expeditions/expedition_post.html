@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Expedition</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/expeditions}" th:object="${expedition}">
+
+    <h2>Input expedition data</h2><br>
+
+    <label>Mission info: <input th:field="*{mission}" type="text"/></label><br>
+    <label>Planned start date: <input th:field="*{startDate}"
+                                      type="date"
+                                      id="start"/></label><br>
+    <label>Planned completion date: <input th:field="*{completionDate}"
+                                           type="date"
+                                           id="completion"/></label><br>
+    <label>Spacecraft ID: <input th:field="*{spacecraft_id}" type="number"/></label><br>
+    <label>Astronauts IDs: <input th:field="*{astronautsIdString}"
+                                  type="text"
+                                  placeholder="Input ids with ', '"/></label><br>
+
+    <button id="checking">Check</button><br>
+
+    <p id="datesCheck"></p><br>
+
+    <input type="submit" value="Create" hidden id="submit"/>
+
+</form>
+<script>
+    let down = document.getElementById('datesCheck')
+    let checkBtn = document.getElementById('checking')
+    let submitBtn = document.getElementById('submit')
+
+    const checkDates = (e) => {
+
+        e.preventDefault()
+
+        let startDate = Date.parse(document.getElementById('start').value);
+        let completionDate = Date.parse(document.getElementById('completion').value);
+        let currDate = new Date();
+
+        if (startDate > completionDate || startDate < currDate) {
+            down.innerHTML = "Wrong data input";
+        } else {
+            submitBtn.removeAttribute('hidden')
+            down.innerHTML = "";
+        }
+    }
+
+    checkBtn.addEventListener("click", checkDates)
+</script>
+</body>
+</html>
