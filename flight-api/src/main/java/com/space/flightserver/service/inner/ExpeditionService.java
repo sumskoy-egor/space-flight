@@ -90,6 +90,10 @@ public class ExpeditionService implements ExpeditionCRUD {
         var expedition = repository.findById(id).orElseThrow(() ->
                 new ExpeditionException(HttpStatus.NOT_FOUND, "Expedition with id " + id + " was not found"));
 
+        if (expedition.getActualCompletionDate() != null) {
+            throw new ExpeditionException(HttpStatus.CONFLICT, "Expedition with id " + id + " has already completed");
+        }
+
         if (expedition.getActualStartDate() != null) {
             throw new ExpeditionException(HttpStatus.CONFLICT, "Expedition with id " + id + " has already started");
         }
