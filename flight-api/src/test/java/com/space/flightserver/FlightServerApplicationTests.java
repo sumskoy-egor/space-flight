@@ -2,6 +2,7 @@ package com.space.flightserver;
 
 import com.space.flightserver.model.entity.inner.dto.AstronautResponse;
 import com.space.flightserver.model.entity.inner.request.CreateAstronautRequest;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +30,7 @@ class FlightServerApplicationTests {
 
     @Test
     @WithMockUser(username = "test", roles = "OPERATOR")
+    @Order(1)
     void testCreateAstronaut() {
         String expectedName = "test";
         Boolean expectedState = true;
@@ -42,6 +44,24 @@ class FlightServerApplicationTests {
         assertNotNull(response.id());
         assertEquals(expectedName, response.name());
         assertEquals(expectedState, response.isBusy());
+    }
+
+    @Test
+    @Order(2)
+    void testCreateExpedition() {
+
+    }
+
+    @Test
+    @Order(3)
+    void testStartExpedition() {
+
+    }
+
+    @Test
+    @Order(4)
+    void testGetExpedition() {
+
     }
 
     private ResponseEntity<AstronautResponse> createAstronaut(String name, Boolean busy) {
