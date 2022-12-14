@@ -34,6 +34,12 @@ public class Astronaut {
         this.isBusy = isBusy;
     }
 
+    public Astronaut(Long id, String name, Boolean isBusy) {
+        this.id = id;
+        this.name = name;
+        this.isBusy = isBusy;
+    }
+
     public Astronaut(Long id, String name, Boolean isBusy, Set<Expedition> expeditions) {
         this.id = id;
         this.name = name;

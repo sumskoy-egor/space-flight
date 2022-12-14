@@ -49,6 +49,23 @@ public class FlightUser {
     @MapKey(name = "id")
     private Map<KnownAuthority, FlightUserAuthority> authorities = new EnumMap<>(KnownAuthority.class);
 
+    public FlightUser() {
+    }
+
+    public FlightUser(Long id,
+                      String email,
+                      String name,
+                      String password,
+                      OffsetDateTime createdAt,
+                      Map<KnownAuthority, FlightUserAuthority> authorities) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.authorities = authorities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
