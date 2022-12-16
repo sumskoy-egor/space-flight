@@ -23,16 +23,12 @@ public class AstronautController {
 
     private final AstronautService service;
 
-    private String accessToken;
-
     public AstronautController(AstronautService service) {
         this.service = service;
     }
 
     @GetMapping
-    public String index(@CookieValue(value = "accessToken", defaultValue = "") String accessToken) {
-        this.accessToken = accessToken;
-
+    public String index() {
         return "astronauts/astronauts_actions";
     }
 
@@ -61,12 +57,13 @@ public class AstronautController {
     //endregion
 
     @GetMapping("/getById")
-    public String getByID(@ModelAttribute("astronaut") AstronautRequest astronaut, Model model) {
+    public String getByID(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                          @ModelAttribute("astronaut") AstronautRequest astronaut,
+                          Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            Map<String, String> map = objectMapper.readValue(service.getById(astronaut.getId()),
+            Map<String, String> map = objectMapper.readValue(service.getById(accessToken, astronaut.getId()),
                     new TypeReference<Map<String, String>>() {
                     });
             model.addAllAttributes(map);
@@ -79,12 +76,13 @@ public class AstronautController {
     }
 
     @PostMapping
-    public String post(@ModelAttribute("astronaut") AstronautRequest astronaut, Model model) {
+    public String post(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                       @ModelAttribute("astronaut") AstronautRequest astronaut,
+                       Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            Map<String, String> map = objectMapper.readValue(service.post(astronaut),
+            Map<String, String> map = objectMapper.readValue(service.post(accessToken, astronaut),
                     new TypeReference<Map<String, String>>() {
                     });
             model.addAllAttributes(map);
@@ -96,12 +94,13 @@ public class AstronautController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteById(@ModelAttribute("astronaut") AstronautRequest astronaut, Model model) {
+    public String deleteById(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                             @ModelAttribute("astronaut") AstronautRequest astronaut,
+                             Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            String response = service.delete(astronaut.getId());
+            String response = service.delete(accessToken, astronaut.getId());
             return astronautResponsePage(model, objectMapper, response);
 
         } catch (JsonProcessingException e) {
@@ -110,11 +109,12 @@ public class AstronautController {
     }
 
     @PutMapping("/put")
-    public String put(@ModelAttribute("astronaut") AstronautRequest astronaut, Model model) {
+    public String put(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                      @ModelAttribute("astronaut") AstronautRequest astronaut,
+                      Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        service.setAccessToken(accessToken);
-        String response = service.put(astronaut);
+        String response = service.put(accessToken, astronaut);
         if (response == null) {
             model.addAttribute("result", "Astronaut does not exist");
             return "another_result";
@@ -139,5 +139,4 @@ public class AstronautController {
         model.addAllAttributes(map);
         return "astronauts/astronaut_response";
     }
-
 }

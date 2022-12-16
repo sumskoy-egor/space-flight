@@ -24,16 +24,12 @@ public class ExpeditionController {
 
     private final ExpeditionService service;
 
-    private String accessToken;
-
     public ExpeditionController(ExpeditionService service) {
         this.service = service;
     }
 
     @GetMapping
-    public String index(@CookieValue(value = "accessToken", defaultValue = "") String accessToken) {
-        this.accessToken = accessToken;
-
+    public String index() {
         return "expeditions/expeditions_actions";
     }
 
@@ -62,12 +58,13 @@ public class ExpeditionController {
     //endregion
 
     @GetMapping("/getById")
-    public String getById(@ModelAttribute("id") IdDTO id, Model model) {
+    public String getById(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                          @ModelAttribute("id") IdDTO id,
+                          Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            Map<String, Object> map = objectMapper.readValue(service.get(id.getIdLong()),
+            Map<String, Object> map = objectMapper.readValue(service.get(accessToken, id.getIdLong()),
                     new TypeReference<Map<String, Object>>() {
                     });
             model.addAllAttributes(map);
@@ -79,15 +76,16 @@ public class ExpeditionController {
     }
 
     @PostMapping
-    public String post(@ModelAttribute("expedition") ExpeditionRequest expedition, Model model) {
+    public String post(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                       @ModelAttribute("expedition") ExpeditionRequest expedition,
+                       Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             expedition.parseAstronauts();
             expedition.setDateFormat();
 
-            service.setAccessToken(accessToken);
-            Map<String, Object> map = objectMapper.readValue(service.create(expedition),
+            Map<String, Object> map = objectMapper.readValue(service.create(accessToken, expedition),
                     new TypeReference<Map<String, Object>>() {
                     });
             model.addAllAttributes(map);
@@ -99,12 +97,13 @@ public class ExpeditionController {
     }
 
     @DeleteMapping("/delete")
-    public String delete(@ModelAttribute("id") IdDTO id, Model model) {
+    public String delete(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                         @ModelAttribute("id") IdDTO id,
+                         Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            String response = service.delete(id.getIdLong());
+            String response = service.delete(accessToken, id.getIdLong());
 
             if (response == null) {
                 model.addAttribute("result", "Expedition does not exist");
@@ -123,11 +122,12 @@ public class ExpeditionController {
     }
 
     @PutMapping("/start")
-    public String start(@ModelAttribute("id") IdDTO id, Model model) {
+    public String start(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                        @ModelAttribute("id") IdDTO id,
+                        Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        service.setAccessToken(accessToken);
-        String response = service.start(id.getIdLong());
+        String response = service.start(accessToken, id.getIdLong());
         if (response == null) {
             model.addAttribute("result", "Something went wrong");
             return "another_result";
@@ -139,18 +139,18 @@ public class ExpeditionController {
     }
 
     @PutMapping("/complete")
-    public String complete(@ModelAttribute("id") IdDTO id, Model model) {
+    public String complete(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                           @ModelAttribute("id") IdDTO id,
+                           Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        service.setAccessToken(accessToken);
-        String response = service.complete(id.getIdLong());
+        String response = service.complete(accessToken, id.getIdLong());
         if (response == null) {
             model.addAttribute("result", "Something went wrong");
-            return "another_result";
         } else {
             model.addAttribute("result",
                     "Expedition " + id.getIdLong() + " has been completed successfully");
-            return "another_result";
         }
+        return "another_result";
     }
 }
