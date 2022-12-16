@@ -6,3 +6,9 @@ spring:
     hidden-method:
       filter:
         enabled: true
+
+url-api: "http://localhost:8080/api/v3"
+url-api-token: "http://localhost:8080/api/v3/token"
+url-api-astronauts: "http://localhost:8080/api/v3/astronauts"
+url-api-expeditions: "http://localhost:8080/api/v3/expeditions"
+url-api-users: "http://localhost:8080/api/v3/users"

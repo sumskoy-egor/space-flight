@@ -1,6 +1,7 @@
 package com.space.flight.flightweb.service.auth;
 
 import com.space.flight.flightweb.model.auth.SignInRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,7 +15,8 @@ public class AuthService {
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    private static final String apiUrl = "http://localhost:8080/api/v3/token";
+    @Value("${url-api-token}")
+    private String apiUrl;
 
     public String login(String email, String password) {
 

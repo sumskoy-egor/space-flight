@@ -1,6 +1,7 @@
 package com.space.flight.flightweb.service.user;
 
 import com.space.flight.flightweb.model.user.UserRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,7 +15,8 @@ public class UserService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private static final String apiUrl = "http://localhost:8080/api/v3/users";
+    @Value("${url-api-users}")
+    private String apiUrl;
 
     public String getMe(String accessToken) {
 
