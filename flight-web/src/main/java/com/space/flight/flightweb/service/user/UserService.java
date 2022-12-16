@@ -1,7 +1,6 @@
 package com.space.flight.flightweb.service.user;
 
 import com.space.flight.flightweb.model.user.UserRequest;
-import com.space.flight.flightweb.service.ServiceTokenAccessible;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,15 +10,13 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class UserService implements ServiceTokenAccessible {
+public class UserService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private String accessToken;
-
     private static final String apiUrl = "http://localhost:8080/api/v3/users";
 
-    public String getMe() {
+    public String getMe(String accessToken) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
@@ -35,15 +32,15 @@ public class UserService implements ServiceTokenAccessible {
         return responseEntity.getBody();
     }
 
-    public String createOperator(UserRequest request) {
-        return createUser("operator", request);
+    public String createOperator(String accessToken, UserRequest request) {
+        return createUser(accessToken, "operator", request);
     }
 
-    public String createRecruiter(UserRequest request) {
-        return createUser("recruiter", request);
+    public String createRecruiter(String accessToken, UserRequest request) {
+        return createUser(accessToken, "recruiter", request);
     }
 
-    private String createUser(String role, UserRequest request) {
+    private String createUser(String accessToken, String role, UserRequest request) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
         headers.add(HttpHeaders.AUTHORIZATION, ("Bearer " + accessToken));
@@ -59,7 +56,7 @@ public class UserService implements ServiceTokenAccessible {
     }
 
     @SuppressWarnings("Duplicates")
-    public void delete(Long id) {
+    public void delete(String accessToken, Long id) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
@@ -76,10 +73,5 @@ public class UserService implements ServiceTokenAccessible {
         } catch (HttpClientErrorException ignored) {
 
         }
-    }
-
-    @Override
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
     }
 }

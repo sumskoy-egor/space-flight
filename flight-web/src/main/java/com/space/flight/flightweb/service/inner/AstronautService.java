@@ -1,7 +1,6 @@
 package com.space.flight.flightweb.service.inner;
 
 import com.space.flight.flightweb.model.inner.AstronautRequest;
-import com.space.flight.flightweb.service.ServiceTokenAccessible;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,17 +9,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class AstronautService implements ServiceTokenAccessible {
+public class AstronautService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    private String accessToken;
-
     private static final String apiUrl = "http://localhost:8080/api/v3/astronauts";
 
-    public String getById(Long id) {
+    @SuppressWarnings("Duplicates")
+    public String getById(String accessToken, Long id) {
 
-        HttpHeaders headers = getHttpHeaders();
+        HttpHeaders headers = getHttpHeaders(accessToken);
 
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
 
@@ -33,9 +31,9 @@ public class AstronautService implements ServiceTokenAccessible {
         return responseEntity.getBody();
     }
 
-    public String post(AstronautRequest request) {
+    public String post(String accessToken, AstronautRequest request) {
 
-        HttpHeaders headers = getHttpHeaders();
+        HttpHeaders headers = getHttpHeaders(accessToken);
 
         HttpEntity<Object> requestEntity = new HttpEntity<>(request, headers);
 
@@ -48,9 +46,9 @@ public class AstronautService implements ServiceTokenAccessible {
     }
 
     @SuppressWarnings("Duplicates")
-    public String delete(Long id) {
+    public String delete(String accessToken, Long id) {
 
-        HttpHeaders headers = getHttpHeaders();
+        HttpHeaders headers = getHttpHeaders(accessToken);
 
         HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
 
@@ -66,9 +64,9 @@ public class AstronautService implements ServiceTokenAccessible {
         }
     }
 
-    public String put(AstronautRequest request) {
+    public String put(String accessToken, AstronautRequest request) {
 
-        HttpHeaders headers = getHttpHeaders();
+        HttpHeaders headers = getHttpHeaders(accessToken);
 
         HttpEntity<Object> requestEntity = new HttpEntity<>(request, headers);
 
@@ -85,16 +83,10 @@ public class AstronautService implements ServiceTokenAccessible {
 
     }
 
-    private HttpHeaders getHttpHeaders() {
+    private HttpHeaders getHttpHeaders(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json");
         headers.add(HttpHeaders.AUTHORIZATION, ("Bearer " + accessToken));
         return headers;
     }
-
-    @Override
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
 }

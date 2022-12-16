@@ -23,16 +23,22 @@ public class UserController {
 
     private final UserService service;
 
-    private String accessToken;
-
     public UserController(UserService service) {
         this.service = service;
     }
 
-    @GetMapping
-    public String index(@CookieValue(value = "accessToken", defaultValue = "") String accessToken) {
-        this.accessToken = accessToken;
 
+    /*
+    todo delete unnecessary words from endpoint path (api/v3/)
+    todo delete refresh token
+    todo put URL to yml file
+    todo add logout
+    todo edit docker-compose
+    todo add README file
+    */
+
+    @GetMapping
+    public String index() {
         return "users/user_actions";
     }
 
@@ -56,12 +62,11 @@ public class UserController {
     //endregion
 
     @GetMapping("/getMe")
-    public String getMe(Model model) {
+    public String getMe(@CookieValue(value = "accessToken", defaultValue = "") String accessToken, Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            Map<String, Object> map = objectMapper.readValue(service.getMe(),
+            Map<String, Object> map = objectMapper.readValue(service.getMe(accessToken),
                     new TypeReference<Map<String, Object>>() {
                     });
             model.addAllAttributes(map);
@@ -73,12 +78,13 @@ public class UserController {
     }
 
     @PostMapping("/operator")
-    public String createOperator(@ModelAttribute("user") UserRequest user, Model model) {
+    public String createOperator(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                                 @ModelAttribute("user") UserRequest user,
+                                 Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            Map<String, Object> map = objectMapper.readValue(service.createOperator(user),
+            Map<String, Object> map = objectMapper.readValue(service.createOperator(accessToken, user),
                     new TypeReference<Map<String, Object>>() {
                     });
             model.addAllAttributes(map);
@@ -90,12 +96,13 @@ public class UserController {
     }
 
     @PostMapping("/recruiter")
-    public String createRecruiter(@ModelAttribute("user") UserRequest user, Model model) {
+    public String createRecruiter(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                                  @ModelAttribute("user") UserRequest user,
+                                  Model model) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            service.setAccessToken(accessToken);
-            Map<String, Object> map = objectMapper.readValue(service.createRecruiter(user),
+            Map<String, Object> map = objectMapper.readValue(service.createRecruiter(accessToken, user),
                     new TypeReference<Map<String, Object>>() {
                     });
             model.addAllAttributes(map);
@@ -107,10 +114,11 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public String deleteUser(@ModelAttribute("id") IdDTO id, Model model) {
+    public String deleteUser(@CookieValue(value = "accessToken", defaultValue = "") String accessToken,
+                             @ModelAttribute("id") IdDTO id,
+                             Model model) {
 
-        service.setAccessToken(accessToken);
-        service.delete(id.getIdLong());
+        service.delete(accessToken, id.getIdLong());
         model.addAttribute("result", "Your request has been processed");
         return "another_result";
     }
