@@ -12,10 +12,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ExpeditionService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${url-api-expeditions}")
     private String apiUrl;
+
+    public ExpeditionService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @SuppressWarnings("Duplicates")
     public String get(String accessToken, Long id) {

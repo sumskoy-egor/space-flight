@@ -12,10 +12,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AstronautService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${url-api-astronauts}")
     private String apiUrl;
+
+    public AstronautService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @SuppressWarnings("Duplicates")
     public String getById(String accessToken, Long id) {

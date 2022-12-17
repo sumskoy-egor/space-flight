@@ -13,10 +13,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AuthService {
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${url-api-token}")
     private String apiUrl;
+
+    public AuthService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public String login(String email, String password) {
 

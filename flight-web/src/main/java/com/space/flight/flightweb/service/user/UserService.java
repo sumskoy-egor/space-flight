@@ -13,10 +13,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class UserService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${url-api-users}")
     private String apiUrl;
+
+    public UserService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     public String getMe(String accessToken) {
 
