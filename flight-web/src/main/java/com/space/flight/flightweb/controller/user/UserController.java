@@ -30,8 +30,8 @@ public class UserController {
 
     // TODO TASKS
     /*
+    todo delete unnecessary words from endpoint path (api/v3/) //////
 
-    todo delete unnecessary words from endpoint path (api/v3/)
     todo add logout
     todo edit docker-compose
     todo add README file
