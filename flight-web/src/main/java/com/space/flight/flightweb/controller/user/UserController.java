@@ -28,10 +28,9 @@ public class UserController {
     }
 
 
+    // TODO TASKS
     /*
-    todo delete unnecessary words from endpoint path (api/v3/)
-    todo delete refresh token
-    todo put URL to yml file
+
     todo add logout
     todo edit docker-compose
     todo add README file

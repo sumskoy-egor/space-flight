@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 // open swagger-ui
                 .antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                // allow user registration and refresh, ignore authorization filters on login
+                // allow user registration, ignore authorization filters on login
                 .antMatchers(HttpMethod.POST, Routes.TOKEN).permitAll()
                 // getting info about current account
                 .antMatchers(HttpMethod.GET, Routes.USERS + "/me").authenticated()

@@ -1,6 +1,7 @@
 package com.space.flight.flightweb.service.inner;
 
 import com.space.flight.flightweb.model.inner.ExpeditionRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,9 +12,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ExpeditionService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
-    private static final String apiUrl = "http://localhost:8080/api/v3/expeditions";
+    @Value("${url-api-expeditions}")
+    private String apiUrl;
+
+    public ExpeditionService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @SuppressWarnings("Duplicates")
     public String get(String accessToken, Long id) {

@@ -1,6 +1,7 @@
 package com.space.flight.flightweb.service.inner;
 
 import com.space.flight.flightweb.model.inner.AstronautRequest;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,9 +12,14 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class AstronautService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
-    private static final String apiUrl = "http://localhost:8080/api/v3/astronauts";
+    @Value("${url-api-astronauts}")
+    private String apiUrl;
+
+    public AstronautService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @SuppressWarnings("Duplicates")
     public String getById(String accessToken, Long id) {
