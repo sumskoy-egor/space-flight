@@ -40,11 +40,22 @@ public class AuthController {
 
             Cookie cookie = new Cookie("accessToken", map.get("accessToken"));
             cookie.setMaxAge(600);
+            cookie.setPath("/login");
             servletResponse.addCookie(cookie);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
 
         return "action_page";
+    }
+
+    @PostMapping("/logout")
+    public String logOut(HttpServletResponse servletResponse, @ModelAttribute("credentials") SignInRequest request) {
+        Cookie cookie = new Cookie("accessToken", null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/login");
+        servletResponse.addCookie(cookie);
+
+        return "token_auth";
     }
 }
