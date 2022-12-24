@@ -38,3 +38,5 @@ Maven 3+<br>
    mvn install -f pom.xml
    ```
 2. Launch docker-compose file for running as containers via Docker
+3. Open http://localhost:8081/login and/or
+http://localhost:8080/swagger-ui/index.html#/auth-controller/login to see all realized api
