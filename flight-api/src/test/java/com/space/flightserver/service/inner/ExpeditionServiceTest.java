@@ -119,16 +119,4 @@ class ExpeditionServiceTest {
 
         verifyNoMoreInteractions(repository);
     }
-
-    @Test
-    void updateStartExpedition() {
-    }
-
-    @Test
-    void updateCompleteExpedition() {
-    }
-
-    @Test
-    void deleteById() {
-    }
 }

@@ -27,13 +27,6 @@ public class UserController {
         this.service = service;
     }
 
-
-    // TODO TASKS
-    /*
-    todo add README file
-
-    */
-
     @GetMapping
     public String index() {
         return "users/user_actions";
