@@ -30,9 +30,8 @@ public class UserController {
 
     // TODO TASKS
     /*
-    todo add logout /////////
+    todo edit docker-compose ///////////
 
-    todo edit docker-compose
     todo add README file
     */
 

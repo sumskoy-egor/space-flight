@@ -7,8 +7,12 @@ spring:
       filter:
         enabled: true
 
-url-api: "http://localhost:8080/"
-url-api-token: "http://localhost:8080/token"
-url-api-astronauts: "http://localhost:8080/astronauts"
-url-api-expeditions: "http://localhost:8080/expeditions"
-url-api-users: "http://localhost:8080/users"
+url-api: "http://host.docker.internal:8080/"
+url-api-token: "http://host.docker.internal:8080/token"
+url-api-astronauts: "http://host.docker.internal:8080/astronauts"
+url-api-expeditions: "http://host.docker.internal:8080/expeditions"
+url-api-users: "http://host.docker.internal:8080/users"
+
+# localhost for Windows running
+# host.docker.internal for Docker running on Windows
+# 172.17.0.1 for Docker running on Linux
