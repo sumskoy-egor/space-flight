@@ -19,7 +19,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="flight-api" options="-parameters" />
-      <module name="flight-web" options="" />
+      <module name="flight-web" options="-parameters" />
     </option>
   </component>
 </project>
