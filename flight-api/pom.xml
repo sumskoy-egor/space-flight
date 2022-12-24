@@ -130,9 +130,6 @@
                     <mainClass>
                         com.space.flightserver.FlightServerApplication
                     </mainClass>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
                 </configuration>
                 <executions>
                     <execution>
